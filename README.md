@@ -39,3 +39,22 @@ Usage of ./bin/template/file/img-outline:
   -style string
         Merge style: macos/raycast (default "macos")
 ```
+
+
+### Image auto outline
+
+```shell
+./bin/template/clipboard/auto-outline
+```
+
+1. copy image to clipboard
+2. run command
+3. paste image to clipboard
+
+![alt text](./testdata/auto_version.png)
+
+```shell
+Usage of ./bin/template/clipboard/auto-outline:
+  -style string
+        Merge style: macos/raycast (default "macos")
+```
