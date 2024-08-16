@@ -58,3 +58,35 @@ Usage of ./bin/template/clipboard/auto-outline:
   -style string
         Merge style: macos/raycast (default "macos")
 ```
+
+
+### Image screencapture outline
+
+```shell
+./bin/template/screencapture/screencapture-outline
+```
+
+after screencapture, you can get image 
+
+![alt text](./testdata/screencapture_version.png)
+
+```shell
+Usage of ./bin/template/clipboard/auto-outline:
+  -style string
+        Merge style: macos/raycast (default "macos")
+```
+
+
+## Formore
+
+I will integrate this tool with Alfred, resulting in:
+
+1. more useful
+2. more convenient
+3. more customizable
+
+
+## Thanks
+1. [gim - Grid Based Image Merge Library](https://github.com/ozankasikci/go-image-merge)
+2. [Cross platform (macOS/Linux/Windows/Android/iOS) clipboard package in Go](https://github.com/golang-design/clipboard)
+3. [online socialscreenshots editor](https://socialscreenshots.com/editor)
