@@ -2,7 +2,7 @@
 
 ## Usage
 
-### Merge images
+### 🚶🚶 Merge images
 
 ```shell
 ./bin/center/merge-img -front ./testdata/test_jpg.jpg -back ./testdata/macos-big-sur-dark.jpg  -out ./result.jpg
@@ -21,7 +21,7 @@ Usage of ./bin/center/merge-img:
 ```
 
 
-### Image outline
+### 🏃🏃 Image outline
 
 ```shell
 ./bin/template/file/img-outline -front ./testdata/test_jpg.jpg -out ./testdata/file_version.jpg
@@ -41,7 +41,7 @@ Usage of ./bin/template/file/img-outline:
 ```
 
 
-### Image auto outline
+### 👫👫 Image auto outline
 
 ```shell
 ./bin/template/clipboard/auto-outline
@@ -60,7 +60,7 @@ Usage of ./bin/template/clipboard/auto-outline:
 ```
 
 
-### Image screencapture outline
+### 🙋🙋 Image screencapture outline
 
 ```shell
 ./bin/template/screencapture/screencapture-outline
@@ -90,3 +90,4 @@ I will integrate this tool with Alfred, resulting in:
 1. [gim - Grid Based Image Merge Library](https://github.com/ozankasikci/go-image-merge)
 2. [Cross platform (macOS/Linux/Windows/Android/iOS) clipboard package in Go](https://github.com/golang-design/clipboard)
 3. [online socialscreenshots editor](https://socialscreenshots.com/editor)
+4. An apple valuable command: screencapture
