@@ -49,24 +49,6 @@ func main() {
 	var fw, fh, bw, bh int
 	jpgHandler := format.NewJPGImage()
 	{
-		frontdata, err = os.ReadFile(front)
-		if err != nil {
-			fmt.Println(front, err)
-			flag.Usage()
-			return
-		}
-
-		var d bytes.Buffer
-		if err = format.ToJPG(bytes.NewReader(frontdata), &d); err != nil {
-			fmt.Println(front, err)
-			flag.Usage()
-			return
-		}
-		frontdata = d.Bytes()
-		fw, fh = jpgHandler.ImageSize(bytes.NewReader(frontdata))
-	}
-
-	{
 		backdata, err = os.ReadFile(back)
 		if err != nil {
 			fmt.Println(front, err)
@@ -82,6 +64,34 @@ func main() {
 		}
 		backdata = d.Bytes()
 		bw, bh = jpgHandler.ImageSize(bytes.NewReader(backdata))
+	}
+
+	{
+		frontdata, err = os.ReadFile(front)
+		if err != nil {
+			fmt.Println(front, err)
+			flag.Usage()
+			return
+		}
+
+		var d bytes.Buffer
+		if err = format.ToJPG(bytes.NewReader(frontdata), &d); err != nil {
+			fmt.Println(front, err)
+			flag.Usage()
+			return
+		}
+		frontdata = d.Bytes()
+		fw, fh = jpgHandler.ImageSize(bytes.NewReader(frontdata))
+
+		if fw >= bw || fh >= bh {
+			fw, fh = jpgHandler.BestImageSize(bw, bh)
+			var resizeWriter bytes.Buffer
+			if err = jpgHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
+				fmt.Println("resize image: ", err)
+				return
+			}
+			frontdata = resizeWriter.Bytes()
+		}
 	}
 
 	file, err := os.Create(out)
