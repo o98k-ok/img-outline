@@ -35,4 +35,4 @@ flow:
 	rm -rf ./output/flow/img-outline-flow_*
 
 	cp ./bin/flow/block_snipaste.sh ./output/flow/block_snipaste.sh
-	cp -r ./bin/template/imgs ./output/flow/imgs
+	cp -r ./bin/template/imgs ./output/flow/

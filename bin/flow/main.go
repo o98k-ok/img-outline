@@ -9,6 +9,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/duke-git/lancet/slice"
 	"github.com/o98k-ok/img-outline/format"
 	"github.com/o98k-ok/img-outline/merge"
 	"github.com/o98k-ok/lazy/v2/alfred"
@@ -30,6 +31,13 @@ func main() {
 	cli.Bind("images", func(s []string) { backgroundImages(conf[BACK_IMAGES]) })
 	cli.Bind("outline", func(s []string) {
 		runScreencapture(conf[SCREEN_SHOT])
+
+		if len(s) == 0 {
+			images := listBackgroundImages(conf[BACK_IMAGES])
+			if len(images) != 0 {
+				s = []string{images[0].Arg}
+			}
+		}
 		outline(s)
 	})
 	cli.Run(os.Args)
@@ -68,6 +76,7 @@ func listBackgroundImages(imagePath string) []*alfred.Item {
 
 		}
 	}
+	slice.Shuffle(items)
 	return items
 }
 
