@@ -11,7 +11,7 @@ import (
 
 type ImageFormater interface {
 	ResizeImage(reader io.Reader, width, height int, imgWriter io.Writer) error
-	BestImageSize(int, int) (int, int)
+	BestImageSize(int, int, int, int) (int, int)
 	ImageSize(read io.Reader) (int, int)
 }
 
@@ -31,16 +31,16 @@ func NewPNGImage() ImageFormater {
 	return &PNGImage{Noise: 1.618}
 }
 
-func (i *JPGImage) BestImageSize(width, height int) (int, int) {
+func (i *JPGImage) BestImageSize(fw, fh, width, height int) (int, int) {
 	var resWidth, resHeight int
-	if width > height {
+	if fw > fh {
 		resWidth = int(float32(width) / i.Noise)
-		rate := float32(resWidth) / float32(width)
-		resHeight = int(float32(height) * rate)
+		rate := float32(resWidth) / float32(fw)
+		resHeight = int(float32(fh) * rate)
 	} else {
 		resHeight = int(float32(height) / i.Noise)
-		rate := float32(resHeight) / float32(height)
-		resWidth = int(float32(width) * rate)
+		rate := float32(resHeight) / float32(fh)
+		resWidth = int(float32(fw) * rate)
 	}
 	return resWidth, resHeight
 }
@@ -53,16 +53,16 @@ func (i *JPGImage) ImageSize(read io.Reader) (int, int) {
 	return img.Bounds().Dx(), img.Bounds().Dy()
 }
 
-func (i *PNGImage) BestImageSize(width, height int) (int, int) {
+func (i *PNGImage) BestImageSize(fw, fh, width, height int) (int, int) {
 	var resWidth, resHeight int
-	if width > height {
+	if fw > fh {
 		resWidth = int(float32(width) / i.Noise)
-		rate := float32(resWidth) / float32(width)
-		resHeight = int(float32(height) * rate)
+		rate := float32(resWidth) / float32(fw)
+		resHeight = int(float32(fh) * rate)
 	} else {
 		resHeight = int(float32(height) / i.Noise)
-		rate := float32(resHeight) / float32(height)
-		resWidth = int(float32(width) * rate)
+		rate := float32(resHeight) / float32(fh)
+		resWidth = int(float32(fw) * rate)
 	}
 	return resWidth, resHeight
 }

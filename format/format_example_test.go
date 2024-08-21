@@ -20,7 +20,7 @@ func ExamplePNGImage() {
 	}
 	defer file.Close()
 
-	w, h := pngImg.BestImageSize(1920, 1080)
+	w, h := pngImg.BestImageSize(100, 100, 1920, 1080)
 	fmt.Println(w, h)
 	if err = pngImg.ResizeImage(bytes.NewReader(img), w, h, file); err != nil {
 		fmt.Printf("Resize image failed: %s", err.Error())

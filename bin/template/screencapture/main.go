@@ -85,7 +85,9 @@ func main() {
 		fw, fh = jpgHandler.ImageSize(bytes.NewReader(frontdata))
 
 		if fw >= bw || fh >= bh {
-			fw, fh = jpgHandler.BestImageSize(bw, bh)
+			fmt.Println(fw, fh)
+			fw, fh = jpgHandler.BestImageSize(fw, fh, bw, bh)
+			fmt.Println(fw, fh)
 			var resizeWriter bytes.Buffer
 			if err = jpgHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
 				fmt.Println("resize image: ", err)
