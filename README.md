@@ -5,13 +5,13 @@
 ### 🚶🚶 Merge images
 
 ```shell
-./bin/center/merge-img -front ./testdata/test_jpg.jpg -back ./testdata/macos-big-sur-dark.jpg  -out ./result.jpg
+./output/merge-img -front ./testdata/test_jpg.jpg -back ./testdata/macos-big-sur-dark.jpg  -out ./result.jpg
 ```
 
 ![alt text](./testdata/result.jpg)
 
 ```shell
-Usage of ./bin/center/merge-img:
+Usage of ./output/merge-img:
   -back string
     	background Image path
   -front string
@@ -24,14 +24,14 @@ Usage of ./bin/center/merge-img:
 ### 🏃🏃 Image outline
 
 ```shell
-./bin/template/file/img-outline -front ./testdata/test_jpg.jpg -out ./testdata/file_version.jpg
-./bin/template/file/img-outline -front ./testdata/test_jpg.jpg -out ./testdata/file_version.jpg -style raycast
+./output/img-outline -front ./testdata/test_jpg.jpg -out ./testdata/file_version.jpg
+./output/img-outline -front ./testdata/test_jpg.jpg -out ./testdata/file_version.jpg -style raycast
 ```
 
 ![alt text](./testdata/file_version.jpg)
 
 ```shell
-Usage of ./bin/template/file/img-outline:
+Usage of ./output/img-outline:
   -front string
         Front image path
   -out string
@@ -44,7 +44,7 @@ Usage of ./bin/template/file/img-outline:
 ### 👫👫 Image auto outline
 
 ```shell
-./bin/template/clipboard/auto-outline
+./output/auto-outline
 ```
 
 1. copy image to clipboard
@@ -54,7 +54,7 @@ Usage of ./bin/template/file/img-outline:
 ![alt text](./testdata/auto_version.png)
 
 ```shell
-Usage of ./bin/template/clipboard/auto-outline:
+Usage of ./output/auto-outline:
   -style string
         Merge style: macos/raycast (default "macos")
 ```
@@ -71,7 +71,7 @@ after screencapture, you can get image
 ![alt text](./testdata/screencapture_version.png)
 
 ```shell
-Usage of ./bin/template/clipboard/auto-outline:
+Usage of ./output/auto-outline:
   -style string
         Merge style: macos/raycast (default "macos")
 ```
