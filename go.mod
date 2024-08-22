@@ -3,10 +3,10 @@ module github.com/o98k-ok/img-outline
 go 1.22.0
 
 require (
-	github.com/duke-git/lancet v1.4.3
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/ozankasikci/go-image-merge v0.3.1
 	golang.design/x/clipboard v0.7.0
+	golang.org/x/exp v0.0.0-20220303212507-bbda1eaf7a17
 )
 
 require (

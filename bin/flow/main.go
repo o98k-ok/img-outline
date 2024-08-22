@@ -8,12 +8,13 @@ import (
 	"os/exec"
 	"path"
 	"strings"
+	"time"
 
-	"github.com/duke-git/lancet/slice"
 	"github.com/o98k-ok/img-outline/format"
 	"github.com/o98k-ok/img-outline/merge"
 	"github.com/o98k-ok/lazy/v2/alfred"
 	"golang.design/x/clipboard"
+	"golang.org/x/exp/rand"
 )
 
 var (
@@ -76,8 +77,16 @@ func listBackgroundImages(imagePath string) []*alfred.Item {
 
 		}
 	}
-	slice.Shuffle(items)
+	Shuffle(items)
 	return items
+}
+
+func Shuffle[T any](slice []T) {
+	r := rand.New(rand.NewSource(uint64(time.Now().Unix())))
+	for n := len(slice); n > 0; n-- {
+		randIndex := r.Intn(n)
+		slice[n-1], slice[randIndex] = slice[randIndex], slice[n-1]
+	}
 }
 
 func outline(s []string) {
