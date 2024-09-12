@@ -31,7 +31,10 @@ func main() {
 	cli := alfred.NewApp("vscode util toools")
 	cli.Bind("images", func(s []string) { backgroundImages(conf[BACK_IMAGES]) })
 	cli.Bind("outline", func(s []string) {
-		runScreencapture(conf[SCREEN_SHOT])
+		cmd := conf[SCREEN_SHOT]
+		if len(cmd) != 0 {
+			runScreencapture(cmd)
+		}
 
 		if len(s) == 0 {
 			images := listBackgroundImages(conf[BACK_IMAGES])
@@ -40,6 +43,7 @@ func main() {
 			}
 		}
 		outline(s)
+		alfred.Log("shot out finish")
 	})
 	cli.Run(os.Args)
 }
@@ -125,8 +129,8 @@ func outline(s []string) {
 		}
 
 		var d bytes.Buffer
-		if err = format.ToJPG(bytes.NewReader(frontdata), &d); err != nil {
-			alfred.ErrItems("toJPG", err).Show()
+		if err = format.ToPNG(bytes.NewReader(frontdata), &d); err != nil {
+			alfred.ErrItems("toPNG", err).Show()
 			return
 		}
 		frontdata = d.Bytes()
@@ -141,6 +145,9 @@ func outline(s []string) {
 			}
 			frontdata = resizeWriter.Bytes()
 		}
+
+		// 将frontdata的直角图片信息转变成圆角图片信息
+		frontdata = merge.RoundCorner(frontdata, fw, fh)
 	}
 
 	var file bytes.Buffer

@@ -108,3 +108,12 @@ func ToJPG(reader io.Reader, writer io.Writer) error {
 
 	return jpeg.Encode(writer, img, nil)
 }
+
+func ToPNG(reader io.Reader, writer io.Writer) error {
+	img, _, err := image.Decode(reader)
+	if err != nil {
+		return err
+	}
+
+	return png.Encode(writer, img)
+}
