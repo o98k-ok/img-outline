@@ -103,8 +103,9 @@ func outline(s []string) {
 	var frontdata, backdata []byte
 	var fw, fh, bw, bh int
 	var err error
-	jpgHandler := format.NewJPGImage()
+
 	{
+		jpgHandler := format.NewJPGImage()
 		backdata, err = os.ReadFile(back)
 		if err != nil {
 			alfred.ErrItems("readback", err).Show()
@@ -121,6 +122,7 @@ func outline(s []string) {
 	}
 
 	{
+		pngHandler := format.NewPNGImage()
 		frontdata = clipboard.Read(clipboard.FmtImage)
 		_, _, err := image.Decode(bytes.NewReader(frontdata))
 		if err != nil {
@@ -134,12 +136,12 @@ func outline(s []string) {
 			return
 		}
 		frontdata = d.Bytes()
-		fw, fh = jpgHandler.ImageSize(bytes.NewReader(frontdata))
+		fw, fh = pngHandler.ImageSize(bytes.NewReader(frontdata))
 
 		if fw >= bw || fh >= bh {
-			fw, fh = jpgHandler.BestImageSize(fw, fh, bw, bh)
+			fw, fh = pngHandler.BestImageSize(fw, fh, bw, bh)
 			var resizeWriter bytes.Buffer
-			if err = jpgHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
+			if err = pngHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
 				alfred.ErrItems("resize", err).Show()
 				return
 			}
