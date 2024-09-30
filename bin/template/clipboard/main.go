@@ -41,8 +41,9 @@ func main() {
 
 	var frontdata, backdata []byte
 	var fw, fh, bw, bh int
-	jpgHandler := format.NewJPGImage()
+
 	{
+		jpgHandler := format.NewJPGImage()
 		backdata, err = os.ReadFile(back)
 		if err != nil {
 			fmt.Println("Error reading background image from file:", err)
@@ -60,6 +61,7 @@ func main() {
 	}
 
 	{
+		pngHandler := format.NewPNGImage()
 		frontdata = clipboard.Read(clipboard.FmtImage)
 		_, _, err := image.Decode(bytes.NewReader(frontdata))
 		if err != nil {
@@ -68,22 +70,25 @@ func main() {
 		}
 
 		var d bytes.Buffer
-		if err = format.ToJPG(bytes.NewReader(frontdata), &d); err != nil {
+		if err = format.ToPNG(bytes.NewReader(frontdata), &d); err != nil {
 			fmt.Println("Error toJPG: ", err)
 			return
 		}
 		frontdata = d.Bytes()
-		fw, fh = jpgHandler.ImageSize(bytes.NewReader(frontdata))
+		fw, fh = pngHandler.ImageSize(bytes.NewReader(frontdata))
 
 		if fw >= bw || fh >= bh {
-			fw, fh = jpgHandler.BestImageSize(fw, fh, bw, bh)
+			fw, fh = pngHandler.BestImageSize(fw, fh, bw, bh)
 			var resizeWriter bytes.Buffer
-			if err = jpgHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
+			if err = pngHandler.ResizeImage(bytes.NewReader(frontdata), fw, fh, &resizeWriter); err != nil {
 				fmt.Println("resize image: ", err)
 				return
 			}
 			frontdata = resizeWriter.Bytes()
 		}
+
+		// 将frontdata的直角图片信息转变成圆角图片信息
+		frontdata = merge.RoundCorner(frontdata, fw, fh)
 	}
 
 	var file bytes.Buffer
