@@ -17,14 +17,15 @@ import (
 )
 
 func main() {
-	var style string
+	var style, dir string
 	var err error
 	flag.StringVar(&style, "style", "macos", "Merge style: macos/raycast")
+	flag.StringVar(&dir, "dir", "./bin/template/imgs", "Directory of background images")
 	flag.Parse()
 
 	var back string
 	{
-		dir := path.Join("./bin/template/imgs", style)
+		dir := path.Join(dir, style)
 		files, err := os.ReadDir(dir)
 		if err != nil {
 			fmt.Println("Error reading directory:", dir, err)
